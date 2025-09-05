@@ -22,21 +22,18 @@ export default function RadarMap({ lat, lon, zoom = 6 }: Props) {
   , [frame]);
 
   return (
-    <div className="card" style={{ height: 340, overflow:'hidden' }}>
+    <div className="card" style={{ height: 360, overflow:'hidden' }}>
       <MapContainer center={[lat, lon]} zoom={zoom} style={{ height:'100%', width:'100%' }}>
-        {/* dark base WITHOUT labels */}
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png"
           attribution="&copy; OpenStreetMap &copy; Carto"
         />
-        {/* bright label overlay so city names pop */}
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png"
-          opacity={0.95}
+          opacity={0.98}
           zIndex={650}
         />
-        {url && <TileLayer url=".../dark_only_labels/{z}/{x}/{y}{r}.png" opacity={1} zIndex={650} />
-}
+        {url && <TileLayer attribution="Radar &copy; RainViewer" url={url} opacity={0.65} zIndex={500} />}
       </MapContainer>
     </div>
   );

@@ -1,139 +1,175 @@
-/* --- THEME TOKENS --- */
+/* ============= THEME TOKENS ============= */
 :root{
-  --bg:#f6f7fb;
-  --text:#111;
-  --muted:#667085;
-  --card:#ffffff;
-  --border:#e5e7eb;
-  --accent:#e50914;        /* Netflix red */
-  --accent-contrast:#ffffff;
-  --shadow: 0 10px 24px rgba(0,0,0,.04);
-}
-:root[data-theme="dark"]{
-  --bg:#0f0f0f;            /* Netflix page background */
-  --text:#e5e5e5;
-  --muted:#a1a1aa;
-  --card:#141414;          /* Netflix panel background */
-  --border:#262626;
-  --shadow: 0 14px 28px rgba(0,0,0,.35);
+  --bg:#0b0b0c;              /* page bg */
+  --bg-2:#101013;            /* panels backdrop */
+  --text:#f2f3f5;
+  --muted:#a0a4ad;
+  --border:#23252b;
+  --accent:#e50914;          /* Netflix red */
+  --accent-2:#ff4d57;
+  --shadow: 0 20px 60px rgba(0,0,0,.55);
 }
 
+:root[data-theme="light"]{
+  --bg:#f6f7fb;
+  --bg-2:#ffffff;
+  --text:#101012;
+  --muted:#5b616b;
+  --border:#e5e7eb;
+  --shadow: 0 14px 38px rgba(0,0,0,.08);
+}
+
+/* ===== Global ===== */
 *{box-sizing:border-box}
 html,body,#root{height:100%}
 body{
   margin:0;
-  background:var(--bg);
   color:var(--text);
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(229,9,20,.18), transparent 60%),
+    radial-gradient(900px 500px at 95% 10%, rgba(114,120,255,.16), transparent 60%),
+    linear-gradient(180deg, #0b0b0c 0%, #0e0e10 100%);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial;
 }
 
-/* --- PRIMITIVES --- */
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:16px;
-  box-shadow:var(--shadow);
-}
-.row{ display:grid; gap:16px; }
+/* ===== Shell & common ===== */
+.shell{ max-width:1160px; margin:0 auto; padding:24px 16px 40px; }
+.h1{ font-size:32px; letter-spacing:.3px; margin:0 0 14px; }
 
-/* buttons */
-.btn{
-  background:var(--accent);
-  color:var(--accent-contrast);
-  border:1px solid transparent;
-  border-radius:10px;
-  padding:10px 14px;
-  font-weight:700;
-  letter-spacing:.15px;
-  cursor:pointer;
-  transition:transform .05s ease, filter .2s ease;
+.toolbar{
+  display:grid; gap:12px; align-items:center;
+  grid-template-columns: 2.2fr auto auto auto;
+  margin-bottom:14px;
 }
-.btn:hover{ filter:brightness(1.05) }
-.btn:active{ transform:scale(.98) }
-.btn-ghost{
-  background:transparent;
-  color:var(--text);
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:10px 14px;
-  cursor:pointer;
-}
-
-/* inputs/selects */
+.brand{ font-weight:800; letter-spacing:.2px; }
 input, select{
   width:100%;
-  padding:10px 12px;
-  background:var(--card);
-  color:var(--text);
+  padding:12px 14px;
   border:1px solid var(--border);
-  border-radius:10px;
+  border-radius:12px;
+  background:var(--bg-2);
+  color:var(--text);
   outline:none;
 }
 input::placeholder{ color:var(--muted) }
 
-/* Make older inline-styled cards auto-theme */
-[style*="border: 1px solid #eee"], [style*="border:1px solid #eee"]{
-  border-color:var(--border)!important;
-  background:var(--card)!important;
-  color:var(--text)!important;
+.btn{
+  background:linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+  color:#fff; border:0; border-radius:12px;
+  padding:11px 16px; font-weight:800; letter-spacing:.2px; cursor:pointer;
+  box-shadow:0 6px 18px rgba(229,9,20,.35);
+  transition:transform .06s ease, filter .2s ease;
+}
+.btn:hover{ filter:brightness(1.02) }
+.btn:active{ transform:translateY(1px) scale(.99) }
+
+.btn-ghost{
+  background:var(--bg-2); color:var(--text);
+  border:1px solid var(--border); border-radius:12px; padding:11px 14px; cursor:pointer;
 }
 
-/* ---------- DARK MODE FIXES FOR INLINE TEXT COLORS ---------- */
-:root[data-theme="dark"] [style*="color:#333"],
-:root[data-theme="dark"] [style*="color: #333"],
-:root[data-theme="dark"] [style*="color:#444"],
-:root[data-theme="dark"] [style*="color: #444"],
-:root[data-theme="dark"] [style*="color:#555"],
-:root[data-theme="dark"] [style*="color: #555"],
-:root[data-theme="dark"] [style*="color:#666"],
-:root[data-theme="dark"] [style*="color: #666"],
-:root[data-theme="dark"] [style*="color:#777"],
-:root[data-theme="dark"] [style*="color: #777"]{
-  color: var(--muted) !important;
+/* ===== Cards ===== */
+.card{
+  position:relative;
+  background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)) , var(--bg-2);
+  border:1px solid var(--border);
+  border-radius:16px; padding:16px;
+  box-shadow:var(--shadow);
 }
-.card h1, .card h2, .card h3, .card div[style*="font-weight:600"]{ color:var(--text); }
+.section{ display:grid; gap:16px; }
+.row-3{ grid-template-columns: 1.25fr 1fr 1fr; }
+.row-33{ grid-template-columns: 1fr 1fr 1fr; }
+.row-1{ grid-template-columns: 1fr; }
+@media (max-width: 980px){
+  .toolbar{ grid-template-columns: 1fr 1fr auto auto; }
+  .row-3{ grid-template-columns: 1fr; }
+  .row-33{ grid-template-columns: 1fr; }
+}
+.kicker{ font-weight:700; margin-bottom:8px; }
 
-/* recharts tooltip/axes */
+/* ===== Recharts in dark ===== */
 .recharts-default-tooltip{
-  background: var(--card) !important;
+  background: var(--bg-2) !important;
   border: 1px solid var(--border) !important;
   color: var(--text) !important;
 }
+.recharts-cartesian-axis-tick text{ fill: var(--muted) !important; }
 
-/* leaflet polish */
-.leaflet-container{ background:var(--card) }
+/* ===== Leaflet polish ===== */
+.leaflet-container{ background:var(--bg-2); border-radius:14px; }
 .leaflet-control-attribution{ opacity:.8; }
-/* --- SearchBox dropdown (dark/light themed) --- */
+
+/* ===== Search dropdown (themed) ===== */
 .sb-menu{
-  position:absolute; top:110%; left:0; right:0;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:12px;
-  box-shadow:var(--shadow);
-  z-index: 50;
-  max-height: 320px;
-  overflow:auto;
+  position:absolute; top:110%; left:0; right:0; z-index:50;
+  background:var(--bg-2); border:1px solid var(--border); border-radius:14px;
+  max-height:320px; overflow:auto; box-shadow:var(--shadow);
 }
 .sb-option{
-  width:100%;
-  text-align:left;
-  background:transparent;
-  color:var(--text);
-  border:0;
-  padding:12px 14px;
-  display:flex; gap:8px; align-items:baseline;
-  cursor:pointer;
+  width:100%; text-align:left; border:0; background:transparent; color:var(--text);
+  padding:12px 14px; display:flex; gap:8px; align-items:baseline; cursor:pointer;
 }
-.sb-option:hover, .sb-option.is-active{
-  background: rgba(255,255,255,.06);            /* subtle on dark */
-}
-:root:not([data-theme="dark"]) .sb-option:hover,
-:root:not([data-theme="dark"]) .sb-option.is-active{
-  background: rgba(0,0,0,.04);                  /* subtle on light */
-}
-.sb-title{ font-weight:600; }
+.sb-option:hover, .sb-option.is-active{ background:rgba(255,255,255,.06); }
+:root[data-theme="light"] .sb-option:hover,
+:root[data-theme="light"] .sb-option.is-active{ background:rgba(0,0,0,.04); }
+.sb-title{ font-weight:700; }
 .sb-sub{ color:var(--muted); font-size:12px; }
-.sb-empty{
-  padding:12px 14px; color:var(--muted);
+.sb-empty{ padding:12px 14px; color:var(--muted); }
+
+/* ===== Force legacy inline grays to theme muted in dark ===== */
+:root:not([data-theme="light"]) [style*="color:#333"],
+:root:not([data-theme="light"]) [style*="color:#444"],
+:root:not([data-theme="light"]) [style*="color:#555"],
+:root:not([data-theme="light"]) [style*="color:#666"],
+:root:not([data-theme="light"]) [style*="color:#777"]{
+  color:var(--muted) !important;
 }
+.card h1, .card h2, .card h3, .card div[style*="font-weight:600"]{ color:var(--text); }
+
+/* ===== Footer ===== */
+.footer{
+  margin: 28px 0 46px;
+  padding-top: 14px;
+  border-top:1px dashed var(--border);
+  text-align:center; color:var(--muted);
+}
+/* Make page fill the viewport so footer can stick to bottom */
+.shell{ max-width:1160px; margin:0 auto; padding:24px 16px 40px; }
+.shell{ min-height:100vh; display:flex; flex-direction:column; }
+.main{ flex:1; }  /* Wrap your main content in <main class="main"> ... </main> */
+
+/* --- Beautiful footer --- */
+.site-footer{
+  position:relative;
+  margin-top:24px;
+}
+.site-footer::before{
+  content:"";
+  position:absolute; left:0; right:0; top:0; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(229,9,20,.55), transparent);
+  opacity:.9;
+}
+.site-footer::after{
+  content:"";
+  position:absolute; left:50%; top:-26px; transform:translateX(-50%);
+  width:320px; height:64px;
+  background:radial-gradient(ellipse at center, rgba(229,9,20,.22), transparent 60%);
+  filter:blur(18px); pointer-events:none;
+}
+.footer-inner{
+  text-align:center;
+  padding:22px 12px 36px;
+}
+.copy-badge{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:10px 16px; border-radius:999px;
+  background:rgba(229,9,20,.12);
+  border:1px solid rgba(229,9,20,.5);
+  color:#fff; font-weight:800; letter-spacing:.25px;
+  box-shadow: inset 0 8px 24px rgba(229,9,20,.18), 0 4px 18px rgba(0,0,0,.35);
+}
+.copy-badge .dot{
+  width:8px; height:8px; border-radius:50%;
+  background:#ff4d57; box-shadow:0 0 10px #ff4d57;
+}
+.copy-badge .year{ color:var(--muted); margin-left:6px; font-weight:700; }

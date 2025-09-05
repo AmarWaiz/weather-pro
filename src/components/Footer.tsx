@@ -1,13 +1,12 @@
 export default function Footer() {
   return (
-    <footer
-      style={{
-        margin: '24px 0 40px',
-        textAlign: 'center',
-        color: 'var(--muted)',
-      }}
-    >
-      copyright@waiz
+    <footer className="site-footer">
+      <div className="footer-inner">
+        <span className="copy-badge">
+          <span className="dot" />
+          copyright@waiz <span className="year">{new Date().getFullYear()}</span>
+        </span>
+      </div>
     </footer>
   );
 }
