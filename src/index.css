@@ -1,0 +1,139 @@
+/* --- THEME TOKENS --- */
+:root{
+  --bg:#f6f7fb;
+  --text:#111;
+  --muted:#667085;
+  --card:#ffffff;
+  --border:#e5e7eb;
+  --accent:#e50914;        /* Netflix red */
+  --accent-contrast:#ffffff;
+  --shadow: 0 10px 24px rgba(0,0,0,.04);
+}
+:root[data-theme="dark"]{
+  --bg:#0f0f0f;            /* Netflix page background */
+  --text:#e5e5e5;
+  --muted:#a1a1aa;
+  --card:#141414;          /* Netflix panel background */
+  --border:#262626;
+  --shadow: 0 14px 28px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
+}
+
+/* --- PRIMITIVES --- */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+  box-shadow:var(--shadow);
+}
+.row{ display:grid; gap:16px; }
+
+/* buttons */
+.btn{
+  background:var(--accent);
+  color:var(--accent-contrast);
+  border:1px solid transparent;
+  border-radius:10px;
+  padding:10px 14px;
+  font-weight:700;
+  letter-spacing:.15px;
+  cursor:pointer;
+  transition:transform .05s ease, filter .2s ease;
+}
+.btn:hover{ filter:brightness(1.05) }
+.btn:active{ transform:scale(.98) }
+.btn-ghost{
+  background:transparent;
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 14px;
+  cursor:pointer;
+}
+
+/* inputs/selects */
+input, select{
+  width:100%;
+  padding:10px 12px;
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:10px;
+  outline:none;
+}
+input::placeholder{ color:var(--muted) }
+
+/* Make older inline-styled cards auto-theme */
+[style*="border: 1px solid #eee"], [style*="border:1px solid #eee"]{
+  border-color:var(--border)!important;
+  background:var(--card)!important;
+  color:var(--text)!important;
+}
+
+/* ---------- DARK MODE FIXES FOR INLINE TEXT COLORS ---------- */
+:root[data-theme="dark"] [style*="color:#333"],
+:root[data-theme="dark"] [style*="color: #333"],
+:root[data-theme="dark"] [style*="color:#444"],
+:root[data-theme="dark"] [style*="color: #444"],
+:root[data-theme="dark"] [style*="color:#555"],
+:root[data-theme="dark"] [style*="color: #555"],
+:root[data-theme="dark"] [style*="color:#666"],
+:root[data-theme="dark"] [style*="color: #666"],
+:root[data-theme="dark"] [style*="color:#777"],
+:root[data-theme="dark"] [style*="color: #777"]{
+  color: var(--muted) !important;
+}
+.card h1, .card h2, .card h3, .card div[style*="font-weight:600"]{ color:var(--text); }
+
+/* recharts tooltip/axes */
+.recharts-default-tooltip{
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+}
+
+/* leaflet polish */
+.leaflet-container{ background:var(--card) }
+.leaflet-control-attribution{ opacity:.8; }
+/* --- SearchBox dropdown (dark/light themed) --- */
+.sb-menu{
+  position:absolute; top:110%; left:0; right:0;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  z-index: 50;
+  max-height: 320px;
+  overflow:auto;
+}
+.sb-option{
+  width:100%;
+  text-align:left;
+  background:transparent;
+  color:var(--text);
+  border:0;
+  padding:12px 14px;
+  display:flex; gap:8px; align-items:baseline;
+  cursor:pointer;
+}
+.sb-option:hover, .sb-option.is-active{
+  background: rgba(255,255,255,.06);            /* subtle on dark */
+}
+:root:not([data-theme="dark"]) .sb-option:hover,
+:root:not([data-theme="dark"]) .sb-option.is-active{
+  background: rgba(0,0,0,.04);                  /* subtle on light */
+}
+.sb-title{ font-weight:600; }
+.sb-sub{ color:var(--muted); font-size:12px; }
+.sb-empty{
+  padding:12px 14px; color:var(--muted);
+}
